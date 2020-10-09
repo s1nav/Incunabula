@@ -1,0 +1,45 @@
+﻿@model IEnumerable<IncunabulaWebApp.Models.Book>
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListBooks</title>
+</head>
+<body>
+    <div class="panel-body">
+        <h2>List of all books</h2>
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date added</th>
+                    <th>Description</th>
+                    <th>Publisher</th>
+                    <th>Authors</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Book r in Model)
+                {
+                <tr>
+                    <td>@r.Title</td>
+                    <td>@DateTime.FromFileTime(r.AddDate).ToLocalTime()</td>
+                    <td>@r.Description</td>
+                    <td>@r.Publisher?.Name</td>
+                    <td>
+                        @foreach (var a in r.BookAuthors)
+                        {
+                            @a.Author?.Name<br>
+                        }
+                    </td>
+                </tr>}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
